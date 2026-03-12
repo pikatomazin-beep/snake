@@ -65,7 +65,7 @@ color2 = (255,0,0)
 koordinatex = 20
 koordinatey = 20
 
-player = [(200,200)]
+snake = [(200,200)]
 smer = (koordinatex,0)
 
 jabukx = random.randrange(0,500,koordinatex)
@@ -91,23 +91,23 @@ while not ext:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 smer = (koordinatex,0)
 
-    headx = player[0][0] + smer[0]
-    heady = player[0][1] + smer[1]
+    headx = snake[0][0] + smer[0]
+    heady = snake[0][1] + smer[1]
     newhead = (headx,heady)
 
     crash = False
 
     if headx < 0 or headx >= 500:
         smer = (-smer[0], smer[1])
-        headx = player[0][0] + smer[0]
+        headx = snake[0][0] + smer[0]
 
     if heady < 0 or heady >= 500:
         smer = (smer[0], -smer[1])
-        heady = player[0][1] + smer[1]
+        heady = snake[0][1] + smer[1]
 
     newhead = (headx, heady)
 
-    if newhead in player:
+    if newhead in snake:
         crash = True
 
     if crash:
@@ -118,7 +118,7 @@ while not ext:
 
 
     else:
-        player.insert(0,newhead)
+        snake.insert(0,newhead)
 
         if newhead == food:
             score += 1
@@ -126,9 +126,9 @@ while not ext:
             jabuky = random.randrange(0,500,koordinatey)
             food = (jabukx,jabuky)
         else:
-            player.pop()
+            snake.pop()
 
-    for part in player:
+    for part in snake:
         pygame.draw.rect(canvas,color1,(part[0],part[1],koordinatex,koordinatey))
 
     pygame.draw.rect(canvas,color2,(food[0],food[1],koordinatex,koordinatey))
